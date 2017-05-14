@@ -1,6 +1,7 @@
 # Source : https://www.hackerearth.com/practice/machine-learning/data-manipulation-visualisation-r-python/tutorial-data-manipulation-numpy-pandas-python/tutorial/?utm_campaign=&utm_medium=email&utm_source=miscellaneous
 # predict if the salary of a given person is less than or more than 50K.
 import pandas as pd
+from sklearn import preprocessing
 # load training data
 train  = pd.read_csv("../../data/train.csv")
 # load test data
@@ -44,4 +45,15 @@ print train.isnull().sum()
 train.target.value_counts()/train.shape[0]
 
 
-pd.crosstab(train.education, train.target,margins=True)/train.shape[0]
+crosstab = pd.crosstab(train.education, train.target,margins=True)/train.shape[0]
+print crosstab
+
+#load sklearn and encode all object type variables
+from sklearn import preprocessing
+
+for x in train.columns:
+    if train[x].dtype == 'object':
+        lbl = preprocessing.LabelEncoder()
+        lbl.fit(list(train[x].values))
+        train[x] = lbl.transform(list(train[x].values))
+print train.head()
