@@ -22,3 +22,22 @@ sum(myDF$Origin %in% mostpopular & myDF$Dest %in% mostpopular)
 # Total number of originating flights from 200 least popular airports
 leastpopular <- sort(table(myDF$Origin))[1:200] 
 sum(leastpopular)
+
+dim(myDF)
+length(mostpopular)
+length(leastpopular)
+class(mostpopular)
+class(leastpopular)
+
+table(myDF$Origin)[mostpopular]
+table(myDF$Origin)[c("SFO","JFK")]
+table(myDF$Dest)[c("DCA","IAD")]
+
+
+# Departure delay
+head(myDF$DepDelay < 0)
+head(myDF$DepDelay == 0)
+head(myDF$DepDelay > 0)
+
+tapply(myDF$DepDelay > 0,myDF$Origin,sum,na.rm=T)
+table(myDF$Origin)
